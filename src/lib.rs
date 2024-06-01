@@ -114,6 +114,7 @@ pub mod utils {
 
     #[cfg(feature = "tokio-comp")]
     impl apalis_core::executor::Executor for TokioExecutor {
+        #[track_caller]
         fn spawn(&self, future: impl std::future::Future<Output = ()> + Send + 'static) {
             tokio::spawn(future);
         }

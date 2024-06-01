@@ -546,6 +546,7 @@ impl<F: Future, E: Executor + Send + Clone + 'static> Future for Tracked<F, E> {
 
 impl<E: Executor + Send + 'static + Clone> Context<E> {
     /// Allows spawning of futures that will be gracefully shutdown by the worker
+    #[track_caller]
     pub fn spawn(&self, future: impl Future<Output = ()> + Send + 'static) {
         self.executor.spawn(self.track(future));
     }
